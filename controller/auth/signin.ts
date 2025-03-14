@@ -1,5 +1,5 @@
 import GenerateSecretKey from "../../lib/GenerateSecretKey";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 
@@ -17,7 +17,7 @@ const loginAdmin = async (req: Request, res: Response) => {
     if (!admin) {
       return res.status(401).json({ message: "Incorrect Email/Password" });
     }
-    const isPasswordMatch = await bcrypt.compare(password, admin.password);
+    const isPasswordMatch = await bcryptjs.compare(password, admin.password);
 
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Incorrect Email/Password" });
