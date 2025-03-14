@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { Request, Response } from "express";
 
 const AdminAuth = require("../../model/admin");
@@ -25,7 +25,7 @@ const signUpAdmin = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
 
     const newUser = new AdminAuth({
       firstname,

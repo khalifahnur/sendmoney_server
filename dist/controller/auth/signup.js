@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const AdminAuth = require("../../model/admin");
 const signUpAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -32,7 +32,7 @@ const signUpAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (existingUser) {
             return res.status(401).json({ message: "User already exists" });
         }
-        const hashedPassword = yield bcrypt_1.default.hash(password, 10);
+        const hashedPassword = yield bcryptjs_1.default.hash(password, 10);
         const newUser = new AdminAuth({
             firstname,
             lastname,
