@@ -9,6 +9,8 @@ COPY package.json package-lock.json ./
 # Install dependencies
 RUN npm install
 
+RUN npm rebuild bcrypt --build-from-source
+
 # Install TypeScript globally
 RUN npm install -g typescript
 
