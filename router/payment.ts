@@ -6,8 +6,8 @@ const InitiatePaymentController = require("../controller/payment/initializepayme
 const authenticateUser = require("../middleware/middleware");
 const handleWebhook = require("../controller/payment/webhook")
 
-router.post("/initiate-payment", InitiatePaymentController);
-router.post("/paystack-web-hook",authenticateUser,handleWebhook)
+router.post("/initiate-payment",authenticateUser, InitiatePaymentController);
+router.post("/paystack-web-hook",handleWebhook)
 
 
 module.exports = router;

@@ -7,11 +7,14 @@ dotenv.config();
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || '';
 
 const initiatePayment = async (req: Request, res: Response) => {
-
-  const { phone, amount, email } = req.body;
+  const { phone, amount, email, adminId } = req.body;
 
   if (!PAYSTACK_SECRET_KEY) {
     return res.status(500).json({ error: 'Paystack secret key is missing' });
+  }
+
+  if (!adminId) {
+    return res.status(400).json({ error: 'Admin ID is required for automatic transfers' });
   }
 
   try {
@@ -24,6 +27,14 @@ const initiatePayment = async (req: Request, res: Response) => {
         mobile_money: {
           phone,
           provider: 'mpesa',
+        },
+        metadata: {
+          adminId: adminId, // Store admin ID in metadata
+          transfer_info: {
+            recipient_type: 'mobile_money',
+            provider: 'mpesa',
+            requires_transfer: true
+          }
         },
       },
       {
